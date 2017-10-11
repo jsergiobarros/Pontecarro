@@ -30,7 +30,7 @@ public class janela_caro extends javax.swing.JFrame {
         initComponents();
         setSize(650,550);
         novocar x = new novocar();
-        x.getT(25,5);
+        x.getT(10,5);
         x.start();
         
     }
@@ -286,7 +286,7 @@ public class janela_caro extends javax.swing.JFrame {
         int vx,te,i=1,posic,x=0,local;
         boolean t=true, direcao=false;
         JLabel lcar = new JLabel(new ImageIcon(getClass().getResource("carro_medio.png")));
-        
+        long travessia,tempoNow = System.currentTimeMillis(),tempo;
         public void getT(int vx,int te){
             this.vx = vx;
             this.te = te;
@@ -299,7 +299,7 @@ public class janela_caro extends javax.swing.JFrame {
             while(t){
                 if(local!=0){
                     for(int aux=0;local>aux ? aux<=controlefila:aux<local;aux++){
-                        if(local==aux)
+                          if(local==aux)
                             continue;
                         while(bateu(vetorn[local],vetorn[aux])){  
                             try{Thread.sleep(vx);}catch(Exception erro){}
@@ -311,12 +311,21 @@ public class janela_caro extends javax.swing.JFrame {
                         }
                     }
                 }
-                try{Thread.sleep(vx);}catch(Exception erro){}
-                lcar.setBounds(lcar.getX()+this.i, 150, 45, 20);
-                movecar(lcar,direcao,x);
-                x++;
-                if(x==30)
-                    x=0;
+                for(int i=0;i<=400;i++){
+                    tempoNow = System.currentTimeMillis();
+                    travessia=0;
+                    while(travessia<vx*2){
+                        tempo = System.currentTimeMillis();
+                        travessia = tempo-tempoNow;
+                        //System.out.println(travessia+" "+vxx*2+" "+i );
+                        }
+                    lcar.setBounds(lcar.getX()+this.i, 150, 45, 20);
+                    System.out.println(i);
+                    movecar(lcar,direcao,x);
+                    x++;
+                    if(x==30)
+                        x=0;
+                    }
                 if(lcar.getX()>=500 || lcar.getX()<=100){
                     i=-i;
                     if(direcao)
